@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<!--
+`<glass>` is Description
+
+@element glass
+-->
+<dom-module id="glass-modal">
+  <template>
+    <style>
+      :host { 
+        display: block;
+        padding: 20px;
+        background: #fff;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+
+    <button on-click="fire">fire</button>
+
+  </template>
+
+  <script>
+    class GlassModal extends Polymer.Element {
+
+      static get is() { return 'glass-modal'; }
+
+      static get properties() {
+        return {
+          isShown: {
+            type: Boolean
+          }
+        };
+      }
+
+      fire() {
+        let event = new CustomEvent('fire');
+        document.dispatchEvent(event);
+      }
+
+    }
+
+    window.customElements.define(GlassModal.is, GlassModal);
+  </script>
+</dom-module>

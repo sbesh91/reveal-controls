@@ -1,0 +1,43 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="./glass-modal.html">
+<link rel="import" href="./home-element.html">
+<script src="../../node_modules/web-animations-js/web-animations-next.min.js"></script>
+
+<dom-module id="reveal-controls-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: 100%;
+      }
+    </style>
+
+    <home-element id="home"></home-element>
+    <glass-modal id="glass"></glass-modal> 
+
+  </template>
+  
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class RevealControlsApp extends Polymer.Element {
+      static get is() { return 'reveal-controls-app'; }
+      static get properties() {
+        return {
+          
+        };
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        document.addEventListener("fire", (e) => {
+          this.$.home.fire(e);
+        })
+      }
+    }
+
+    window.customElements.define(RevealControlsApp.is, RevealControlsApp);
+  </script>
+</dom-module>

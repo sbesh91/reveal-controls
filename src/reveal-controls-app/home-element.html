@@ -1,0 +1,106 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<!--
+`<home>` is Description
+
+@element home
+-->
+<dom-module id="home-element">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      *{
+        box-sizing: border-box;
+      }
+      header{
+        display: flex;
+        flex-direction: column;
+        transform: translateY(-100%);
+      }
+      header div, header nav{
+        border: 1px solid #000;
+        height:40px;
+        background: #fff;
+      }
+
+      main{
+        display: flex;
+        flex: 1 1 100%;
+      }
+      main aside{
+        flex: 0 0 200px;
+        height: 100%;
+        border: 1px solid #000;
+        background: #fff;
+        transform: translateX(-100%);
+      }
+      main section{
+        flex: 1 1 auto;
+        background: lightcyan;
+      }
+    </style>
+
+    <header id="header">
+      <div></div>
+      <nav></nav>
+    </header>
+
+    <main id="main">
+      <aside id="aside"></aside>
+      <section id="section"></section>
+    </main>
+
+  </template>
+
+  <script>
+    class HomeElement extends Polymer.Element {
+
+      static get is() { return 'home-element'; }
+
+      static get properties() {
+        return {
+          
+        };
+      }
+
+      fire(e) {
+        const section = this.$.section;
+        const home = this;
+
+        const shared = {
+          fromPage: home,
+          toPage: section,
+          timing: {
+            easing: "cubic-bezier(0.4, 0.0, 0.2, 1)",
+            duration: 800,
+            fill: "forwards"
+          }
+        };
+
+        let fromRect = shared.fromPage.getBoundingClientRect();
+        let toRect = shared.toPage.getBoundingClientRect();
+        let deltaLeft = fromRect.left - toRect.left;
+        let deltaTop = fromRect.top - toRect.top;
+        let deltaWidth = fromRect.width / toRect.width;
+        let deltaHeight = fromRect.height / toRect.height;
+        let effect = new KeyframeEffect(shared.toPage, [
+          {'transform': 'none'},
+          {'transform': 'translate(' + deltaLeft + 'px,' + deltaTop + 'px) scale(' + deltaWidth + ',' + deltaHeight + ')'}
+        ], shared.timing);
+
+        let anim = new Animation(effect, document.timeline);
+
+        shared.toPage.style['transformOrigin'] = '0 0';
+
+        anim.play();
+      }
+
+    }
+
+    window.customElements.define(HomeElement.is, HomeElement);
+  </script>
+</dom-module>

@@ -1,0 +1,6 @@
+{
+  "name": "reveal-controls",
+  "short_name": "reveal-controls",
+  "start_url": "/",
+  "display": "standalone"
+}
